@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BearArts</title>
+</head>
+<body>
+
+	<h1> Create New Project </h1>
+
+	<form method="POST" action = "#" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ projectForm.projectName.label }}
+		{{ projectForm.projectName }}
+		{{ projectForm.projectDescription.label }}
+		{{ projectForm.projectDescription }}
+		<input type = "file" name = "projectThumbnailFile">
+		<input type="submit" value="Create Project" name = "create_project">
+	</form>
+
+	<h1> Upload New Photograph </h1>
+
+	<form method="POST" action = "#" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ mediaForm }}
+		<input type = "file" name = "mediaFile">
+		<input type="submit" value="Upload Media" name = "create_media">
+	</form>
+
+</body>
+</html>

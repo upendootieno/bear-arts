@@ -1,0 +1,39 @@
+{% extends 'gallery/index.html' %}
+{% load static %}
+
+{% block stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+	<link id = "mode" class = "darkmode" rel= "stylesheet" type = "text/css" href="{% static 'css/dark.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/projectPage.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+	<section class = " project_section dark">
+	
+	<div class = "row">
+
+		<div class="project_title">
+			<h1>{{ projectDetails.projectName |upper }}</h1>
+		</div>
+
+		<p> {{ projectDetails.projectDescription }}</p>
+	</div>
+	
+	<div class="row">
+
+		{% for image in images %}
+
+		<div class="column image_column">
+
+				<div class = "image_container">
+					<img class = "index_img" src="{{ image.mediaUrl }}">
+				</div>
+		</div>
+
+		{% endfor %}
+
+	</div>
+
+	</section>
+
+{% endblock content %}

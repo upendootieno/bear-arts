@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	{% block stylesheet %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+		<link id = "mode" class = "darkmode" rel= "stylesheet" type = "text/css" href="{% static 'css/dark.css' %}">
+	{% endblock stylesheet %}
+	<title>BearArts</title>
+</head>
+<body onload="showContent()">
+
+	<div class = "loading_div" id = "loading_div">
+		<img src = "{% static 'images/loading2.gif' %}">
+	</div>
+
+	<div class="container" id = "container">
+		<div class="top_nav_container">
+			<nav class="top_nav">
+				<div class="logo">
+					<a href="{% url 'index' %}">
+						Bear Arts
+					</a>
+				</div>
+
+				<!--
+
+				<div class = "nav_links">
+					<a href="#">Project1</a>
+					<a href="#">Project2</a>
+					<a href="#">Project3</a>
+				</div>
+
+			-->
+
+			</nav>
+		</div>
+
+		<div class="sidebar hide_on_mobile" id = "sidebar">
+
+			<div class = "sidebar_content" id = "sidebar_content">
+				<img src = "{% static 'images/toggle2.png' %}" onclick="changeTheme()" id = "theme_btn">
+			</div>
+
+		</div>
+
+		{% block content %}
+
+		{% for image in images %}
+
+		{% if forloop.counter|divisibleby:2 %}
+
+		<section class = " project_section light">
+
+			<div class="row align_center">
+
+				<div class="column image_column">
+
+					<a href="projectpage/{{ image.projectID }}">
+
+						<div class = "image_container">
+
+							<img class = "index_img" src="{{ image.projectThumbnail }}">
+
+							<div class = "image_overlay">
+								<div class = "expand_project">
+									<img src = "{% static 'images/plus.png' %}">
+								</div>
+								<div class="projectName">
+									{{image.projectName|upper }}
+								</div>
+							</div>
+
+						</div>
+
+					</a>
+
+				</div>
+
+				<div class = "column hide_on_mobile description_column align_text_left">
+
+					<div class="description">
+
+						<div class = "project_title">
+							<h1>{{ image.projectName| upper }} </h1>
+						</div>
+
+						<div class="description_paragraph">
+
+							<p>{{ image.projectDescription }}</p>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</section>
+
+		{% else %}
+
+		<section class = "project_section dark">
+
+			<div class="row align_center">
+
+				<div class = "column hide_on_mobile description_column align_text_right">
+
+					<div class="description">
+
+						<div class = "project_title">
+							<h1>{{ image.projectName| upper }} </h1>
+						</div>
+
+						<div class="description_paragraph">
+
+							<p>{{ image.projectDescription }}</p>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="column image_column">
+
+					<a href="projectpage/{{ image.projectID }}">
+
+						<div class = "image_container">
+
+							<img class = "index_img" src="{{ image.projectThumbnail }}">
+
+							<div class = "image_overlay">
+								<div class = "expand_project">
+									<img src = "{% static 'images/plus.png' %}">
+								</div>
+								<div class="projectName">
+									{{image.projectName|upper }}
+								</div>
+							</div>
+
+						</div>
+
+					</a>
+
+				</div>
+
+			</div>
+
+		</section>
+
+		{% endif %}
+		
+		{% endfor %}
+
+		{% endblock content %}
+
+
+	</div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+	function showContent(){
+		document.getElementById('container').style.display = "block";
+		document.getElementById('loading_div').style.display = "none";
+	}
+
+	function changeTheme(){
+		button = document.getElementById('theme_btn');
+		stylesheet = document.getElementById('mode');
+
+		if (stylesheet.className == "darkmode"){
+			stylesheet.className = "lightmode";
+			stylesheet.href = "{% static 'css/light.css' %}";
+			button.src = "{% static 'images/toggle.png' %}";
+		}
+
+		else{
+			stylesheet.className = "darkmode";
+			stylesheet.href = "{% static 'css/dark.css' %}";
+			button.src = "{% static 'images/toggle2.png' %}";
+		}
+	}
+	
+</script>
+
+{% block javascript %}
+{% endblock javascript %}
